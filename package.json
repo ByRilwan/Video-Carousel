@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@brightcove/player-loader": "^1.8.0",
+    "dotenv": "^16.4.7",
     "embla-carousel": "^8.6.0",
     "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-react": "^8.6.0",

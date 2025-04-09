@@ -1,9 +1,5 @@
 import React, { useCallback } from 'react'
-import {
-  PrevButton,
-  NextButton,
-  usePrevNextButtons
-} from './EmblaCarouselArrowButtons'
+import { DotButton, useDotButton } from './EmblaCarouselDotButton'
 import Autoplay from 'embla-carousel-autoplay'
 import useEmblaCarousel from 'embla-carousel-react'
 
@@ -23,12 +19,10 @@ const EmblaCarousel = (props) => {
     resetOrStop()
   }, [])
 
-  const {
-    prevBtnDisabled,
-    nextBtnDisabled,
-    onPrevButtonClick,
-    onNextButtonClick
-  } = usePrevNextButtons(emblaApi, onNavButtonClick)
+  const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(
+    emblaApi,
+    onNavButtonClick
+  )
 
   return (
     <section className="embla">
@@ -43,9 +37,16 @@ const EmblaCarousel = (props) => {
       </div>
 
       <div className="embla__controls">
-        <div className="embla__buttons">
-          <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
-          <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
+        <div className="embla__dots">
+          {scrollSnaps.map((_, index) => (
+            <DotButton
+              key={index}
+              onClick={() => onDotButtonClick(index)}
+              className={'embla__dot'.concat(
+                index === selectedIndex ? ' embla__dot--selected' : ''
+              )}
+            />
+          ))}
         </div>
       </div>
     </section>
